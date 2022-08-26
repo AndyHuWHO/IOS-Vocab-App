@@ -24,7 +24,7 @@ app.post("/create", (req, res)=>{
     var word = new Data ({
         wordName: req.get("wordName"),
         dateAdded: req.get("date"),
-        personalInfo: req.get("personalInfo")
+        learningContext: req.get("learningContext")
     })
 
     word.save().then(()=>{
@@ -40,10 +40,36 @@ app.post("/create", (req, res)=>{
 
 //DELETE A WORD
 //POST request
+app.post("/delete",(req,res) =>{
 
+    Data.findByIdAndDelete(req.get("id"), function (err, docs) {
+        if (err){
+            console.log(err)
+        }
+        else{
+            console.log("Deleted : ", docs);
+        }
+    })
+
+    res.send("deleted")
+})
 
 //UPDATE A WORD
 //POST request
+app.post("/update", (req,res)=>{
+
+    Data.findOneAndUpdate({
+        _id: req.get("id")
+    },{
+        wordName: req.get("wordName"),
+        dateAdded: req.get("date"),
+        learningContext: req.get("learningContext")
+    },(err)=>{ 
+        console.log("failed to update " + err)
+    })
+    res.send("updated")
+})
+
 
 //FETCH ALL WORDS
 //GET request

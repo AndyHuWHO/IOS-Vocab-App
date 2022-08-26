@@ -4,7 +4,7 @@ var wordSchema = mongoose.Schema
 var word = new wordSchema({
     wordName: String,
     dateAdded: String,
-    personalWordInfo: String,
+    learningContext: String,
     
 })
 
